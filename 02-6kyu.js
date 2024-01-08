@@ -22,3 +22,12 @@ function sortArray(array) {
 }
 
 console.log(sortArray([11, 1, 2, 8, 3, 4, 5]))
+
+// best practice:
+
+function sortArrayBest(array) {
+   const odd = array.filter((x) => x % 2).sort((a, b) => a - b)
+   return array.map((x) => (x % 2 ? odd.shift() : x))
+}
+
+console.log(sortArrayBest([11, 1, 2, 8, 3, 4, 5]))
