@@ -6,8 +6,8 @@ function WhatIsTheTime(timeInMirror) {
    realMinutes = 60 - mirrorMinutes
    if (realMinutes === 60) realMinutes = 0
    realHour = 12 - mirrorHour
-   if (realMinutes > 0) realHour -= 1 //если минуты не равны нулю, убавляем час
-   if (realHour == 0) realHour = 12 //если получилось реальные 0 часов, меняем на 12
+   if (realMinutes > 0) realHour -= 1
+   if (realHour == 0) realHour = 12
    if (mirrorHour == 12 && mirrorMinutes != "00") realHour = 11
    realHour < 10 ? (realHour = "0" + realHour) : (realHour = realHour)
    realMinutes < 10 ? (realMinutes = "0" + realMinutes) : (realMinutes = realMinutes)
