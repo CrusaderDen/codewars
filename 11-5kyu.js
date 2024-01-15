@@ -28,14 +28,20 @@ function generateHashtag(str) {
 
 console.log(generateHashtag(" asd asdass sdasd     asdasasd     "))
 
-
 // best practice
 
-function generateHashtag (str) {
+function generateHashtag(str) {
+   var hashtag = str.split(" ").reduce(function (tag, word) {
+      return tag + word.charAt(0).toUpperCase() + word.substring(1)
+   }, "#")
 
-   var hashtag = str.split(' ').reduce(function(tag, word) {
-     return tag + word.charAt(0).toUpperCase() + word.substring(1);
-   }, '#');
-   
-   return hashtag.length == 1 || hashtag.length > 140 ? false : hashtag;
- }
+   return hashtag.length == 1 || hashtag.length > 140 ? false : hashtag
+}
+
+function spl(str) {
+   return  str.split(" ").reduce(function (tag, word) {
+      return tag + word.charAt(0).toUpperCase() + word.substring(1)
+   }, "#")
+}
+ 
+console.log(spl("   saas assas   asa "))
