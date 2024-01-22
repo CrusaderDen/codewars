@@ -9,3 +9,15 @@ function filter_list(l) {
 }
 
 console.log(filter_list([1, 2, "a", "b"]))
+
+function divisibleBy(numbers, divisor) {
+   result = []
+   for (let value of numbers) {
+      if (value % divisor == 0) {
+         result.push(value)
+      }
+      return result
+   }
+}
+
+console.log(divisibleBy([1, 2, 3, 4, 5, 6], 2))
