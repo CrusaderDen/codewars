@@ -28,7 +28,8 @@ function solution(arr) {
          rangeEnd = arr[i + 1]
          i++
       }
-      if (rangeEnd - rangeStart >1 ) {
+
+      if (rangeEnd - rangeStart > 1) {
          result.push(`${rangeStart}-${rangeEnd}`)
          i = arr.indexOf(rangeEnd) + 1
          rangeStart = null
@@ -47,39 +48,35 @@ function solution(arr) {
 
 console.log(solution([-5, 1, 4, 5, 6, 8, 12, 13, 18]))
 
-
 // best practice
 function solution(individualIntegers) {
-	return individualIntegers
-		.reduce(splitIntoRanges, [])
-		.map(convertToRange)
-		.join(",");
+   return individualIntegers.reduce(splitIntoRanges, []).map(convertToRange).join(",")
 }
 
 function splitIntoRanges(ranges, number) {
-	if (!ranges.length) {
-		ranges.push([number]);
-		return ranges;
-	}
+   if (!ranges.length) {
+      ranges.push([number])
+      return ranges
+   }
 
-	var lastRange = ranges[ranges.length - 1];
-	var lastNumber = lastRange[lastRange.length - 1];
+   var lastRange = ranges[ranges.length - 1]
+   var lastNumber = lastRange[lastRange.length - 1]
 
-	number === lastNumber + 1 ? lastRange.push(number) : ranges.push([number]);
-	return ranges;
+   number === lastNumber + 1 ? lastRange.push(number) : ranges.push([number])
+   return ranges
 }
 
 function convertToRange(range) {
-	return range.length < 3 ? range.join(",") : range[0] + "-" + range[range.length - 1];
+   return range.length < 3 ? range.join(",") : range[0] + "-" + range[range.length - 1]
 }
 
 //best 2
 
-function solution(list){
-   for(var i = 0; i < list.length; i++){
-      var j = i;
-      while(list[j] - list[j+1] == -1) j++;
-      if(j != i && j-i>1) list.splice(i, j-i+1, list[i] +'-'+list[j]);
-  }
-  return list.join();
+function solution(list) {
+   for (var i = 0; i < list.length; i++) {
+      var j = i
+      while (list[j] - list[j + 1] == -1) j++
+      if (j != i && j - i > 1) list.splice(i, j - i + 1, list[i] + "-" + list[j])
+   }
+   return list.join()
 }
