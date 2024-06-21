@@ -101,6 +101,7 @@ function sumIntervals(intervals) {
 
 function sumIntervals(intervals) {
    let tempArr = []
+   let resultArr = []
    let swither
 
    function reduceRange(intervals) {
@@ -117,9 +118,8 @@ function sumIntervals(intervals) {
             ) {
                tempArr.push(intervals[j])
                console.log(`J = ${j}, Find and del range ${intervals[j]}`)
-               intervals.splice(j, 1)
-               j--
                swither = 1
+               intervals[j] = 0
                console.log(intervals)
             } else {
                console.log(
@@ -141,42 +141,88 @@ function sumIntervals(intervals) {
 
    do {
       swither = 0
+      console.log("Новая рекурсия")
+      console.log(intervals)
       reduceRange(intervals)
    } while (swither !== 0)
 
    console.log(intervals)
    let result = null
    for (let i = 0; i < intervals.length; i++) {
-      result += intervals[i][1] - intervals[i][0]
+      if (intervals[i] !== 0) {
+         result += intervals[i][1] - intervals[i][0]
+      }
    }
    return result
 }
 
+// console.log(sumIntervals(intervals))
+
+/*
+[1, 2],
+[6, 10],
+[11, 15]
+
+
+[1, 2] [6, 10] [11, 15] [14-18]
+
+min = 1
+max = 2
+
+if (nextMin<min && max<nextMax) {
+   nextMin=min
+} else if (nextMax>max && min>nextMin ) {
+   nextMax = max
+} else if (nextMax>max && nextMin<min) {
+   nextMin = min
+   nextMax = max
+}
+(intervals[j][1] > max && intervals[j][0] < min) {
+            min = nextMin
+            max = nextMax
+            intervals[j][1] = null
+            continue
+
+*/
+function newInterval(intervals) {
+   let min, max, nextMin, nextMax
+   let resultArr = []
+   for (let i = 0; i < intervals.length; i++) {
+      if (intervals[i] === 0) continue
+      min = intervals[i][0]
+      max = intervals[i][1]
+      console.log(`i=${i}, min=${min}, max=${max}`)
+      for (let j = i + 1; j < intervals.length; j++) {
+         if (intervals[j][1] > max && intervals[j][0] < min) {
+            console.log("minmax")
+            min = intervals[j][1]
+            max = intervals[j][0]
+            intervals[j] = 0
+         } else if (intervals[j][1] > max && max > intervals[j][0]) {
+            console.log("max")
+            max = intervals[j][1]
+            intervals[j] = 0
+         } else if (intervals[j][0] < min && max > intervals[j][1]) {
+            console.log("min")
+            min = intervals[j][0]
+            intervals[j] = 0
+         } else {
+            console.log("error")
+         }
+         console.log(`min = ${min} | max = ${max}`)
+         resultArr.push([min, max])
+      }
+   }
+   // console.log(intervals)
+   return resultArr
+}
+
 const intervals = [
    [1, 5],
-   [6, 10],
+   [-2, 4],
+   [1, 6],
+   [16, 19],
+   [5, 11],
 ]
-/*
 
- (intervals[j][0](12) <= currentItem[0](13) && intervals[j][0](12) <= currentItem[1](15)) || (intervals[j][1] >= currentItem[0] && intervals[j][1] <= currentItem[1])
-
-currentItem   intervals[j]
-[13, 14]      [12, 15]
-13>=12 && 13<=15 or
-14>=12 && 14<=15
-
-(currentItem[0]>=intervals[j][0] && currentItem[0]<=intervals[j][1]) || (currentItem[1]>=intervals[j][0] && currentItem[1]<=intervals[j][1]) || (intervals[j][0]>=currentItem[0] && intervals[j][0]<=currentItem[1]) || (intervals[j][1]>=currentItem[1] && intervals[j][1]<=currentItem[1])
-
-
-currentItem  intervals[j]
-[12, 15],    [13, 14]
-13>=12 && 13<=15 or
-14>=12 && 14<=15
-
-
-
-
-12<13<15
-*/
-
-console.log(sumIntervals(intervals))
+console.log(newInterval(intervals))
